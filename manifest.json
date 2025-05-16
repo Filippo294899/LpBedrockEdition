@@ -1,0 +1,32 @@
+{
+    "format_version": 2,
+    "header": {
+        "name": "LuckyPermsBedrock",
+        "description": "Luckyperms for Minecraft Bedrock",
+        "uuid": "e3a1a8a0-5b7a-4b1e-8a2d-7c1f3e9d2b1c",
+        "version": [1, 0, 0],
+        "min_engine_version": [1, 20, 0]
+    },
+    "modules": [{
+        "type": "script",
+        "language": "javascript",
+        "uuid": "4f5d6e7c-8a9b-0c1d-2e3f-4a5b6c7d8e9f",
+        "version": [1, 0, 0],
+        "entry": "scripts/main.js"
+    }],
+
+    "dependencies": [{
+
+        "module_name": "@minecraft/server",
+        "version": "2.0.0-beta"
+    }, {
+        "module_name": "@minecraft/server-admin",
+        "version": "1.0.0-beta"
+    }, {
+        "module_name": "@minecraft/server-gametest",
+        "version": "1.0.0-beta"
+    }, {
+        "module_name": "@minecraft/server-ui",
+        "version": "2.0.0-beta"
+    }]
+}
