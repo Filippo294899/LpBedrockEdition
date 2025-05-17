@@ -1,0 +1,2 @@
+
+py Compiler.py --debug

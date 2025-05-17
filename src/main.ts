@@ -1,7 +1,9 @@
 import { Player, world } from "@minecraft/server";
-import "./Core/CommandManager"; // <--- aggiungi questa riga per includere CommandManager
-
+import "./Core/Chat"; // <--- aggiungi questa riga per includere CommandManager
+import { BlockBreak } from "Core/Permissions/BlockBreak";
+import "./Core/Events";
 console.warn("Lp Started");
+
 /*
 
 for (const player of world.getPlayers()) {

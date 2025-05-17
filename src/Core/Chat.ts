@@ -1,13 +1,16 @@
-import { world } from "@minecraft/server";
-import Command from "./Classes/Command";
-import Help from "./Classes/Help";
-import Message from "./Classes/Message";
-const commands = [new Help()]; // puoi aggiungere altri comandi
 
+import { world , Player} from "@minecraft/server";
+import Help from "./Classes/Help";
+
+import CommandManager from "./Classes/CommandManager";
+
+
+const commandManager = new CommandManager();
+commandManager.Register(new Help());
 world.beforeEvents.chatSend.subscribe((event) => {
     const { message, sender } = event;
 
-    for (const command of commands) {
+    for (const command of commandManager.commands) {
         if (command.called(message, sender)) {
             event.cancel = true;
             return;
