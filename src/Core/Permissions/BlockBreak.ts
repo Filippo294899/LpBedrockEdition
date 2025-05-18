@@ -1,7 +1,6 @@
 import { Permission } from "./Permission";
 import { world , Player,system, PlayerBreakBlockBeforeEvent} from "@minecraft/server";
-
-import { Broadcast } from "./Broadcast";
+import { Broadcast } from "../Broadcast";
 
 export class BlockBreak extends Permission {
     constructor() {

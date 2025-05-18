@@ -1,38 +1,45 @@
-import  Message  from "./Message";
+import { system , CustomCommand,CustomCommandOrigin ,CustomCommandResult } from '@minecraft/server';
+import { Player, Entity, Block } from '@minecraft/server';
+export default class Command {
+  static registerEnum(id: string, values: string[]) {
+    system.beforeEvents.startup.subscribe(data => {
+      data.customCommandRegistry.registerEnum(id, values)
+    })
+  }
 
-class Command {
-    name: string;
-    description: string;
-    aliases: string[];
-    Prefix: string;
-    
-    constructor(name: string, description: string, aliases: string[]) {
-        this.Prefix = "!";
-        this.name = name;
-        this.description = description;
-        this.aliases = aliases;
-    }
-
-    // Chiamato dal gestore dei comandi
-    called(message: string, sender: any){
-        if (!message.startsWith(this.Prefix)) return false;
-        const commandName = message.slice(this.Prefix.length).split(" ")[0].toLowerCase();
-        console.warn(`Command called: ${commandName}`);
-        if (
-            commandName === this.name.toLowerCase() ||
-            this.aliases.map(a => a.toLowerCase()).includes(commandName)
-        ) {
-            this.execute(message, sender);
-            return true;
-        }
-    
-        return false;
-    }
-
-    // Da implementare nelle sottoclassi
-    execute(message: string, sender: any): void {
-        // Override nelle sottoclassi
-    }
+    static register(customCommand: CustomCommand, callback: (...args: any[]) => CustomCommandResult): void {
+    customCommand.name = 'Lp:' + customCommand.name
+    system.beforeEvents.startup.subscribe(data => {
+      data.customCommandRegistry.registerCommand(customCommand, ((origin, ...commandArgs) => {
+        const commandData = new CommandData(origin, commandArgs || []);
+        return callback(commandData);
+      }))
+    })
+  }
 }
 
-export default Command;
+
+export class CommandData {
+  private args: any[];
+  private data: any;
+  
+  constructor(data: any, args: any[]) {
+    this.data = data;
+    this.args = args;
+  }
+
+  get source(): Player | Block | Entity | undefined { 
+    return (
+      this.data.initiator || 
+      this.data.sourceBlock || 
+      this.data.sourceEntity
+    )
+  }
+
+  get sourceType() { 
+    return this.data.sourceType 
+  }
+  get commandArguments() { 
+    return this.args.concat([])
+  }
+}

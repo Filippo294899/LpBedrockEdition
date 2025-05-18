@@ -1,14 +1,23 @@
 import Command from "./Command";
-import { world } from "@minecraft/server";
-
-class Help extends Command {
-    constructor() {
-        super("help", "Displays a list of available commands.", ["h", "Help", "HELP", "H"]);
+import { Player  ,CustomCommand, CustomCommandParamType} from "@minecraft/server";
+import { CommandData } from "./Command";
+Command.register(
+  {
+    name: 'test',
+    description: 'Test command',
+    permissionLevel: 1,
+    mandatoryParameters: [
+      {
+        name: 'test',
+        type: CustomCommandParamType.String
+      }
+    ]   
+  },
+    (commandData: CommandData) => {
+        const { source, commandArguments } = commandData;
+        if (source instanceof Player) {
+            source.sendMessage(`Command executed with argument: ${commandArguments[0]}`);
+        }
+        return { status: 0 };
     }
-
-    execute(message: string, sender: any): void {
-        console.warn("Help command executed");
-        sender.sendMessage("§l§8[§aL§bP§8]§7Available commands:");
-}
-}
-export default Help;
+)
