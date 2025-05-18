@@ -1,11 +1,18 @@
 import Command from "./Command";
-import { Player  ,CustomCommand, CustomCommandParamType} from "@minecraft/server";
+import { Player  ,CustomCommand, CustomCommandParamType, CommandPermissionLevel,system} from "@minecraft/server";
 import { CommandData } from "./Command";
+import { Broadcast } from "Core/Broadcast";
+console.warn("Command: Test Command Loaded")
+system.run(() => {
+Broadcast.toWorld("§l§8[§aL§bP§8]§7 Test Command Loaded")
+
+}
+)
 Command.register(
   {
     name: 'test',
     description: 'Test command',
-    permissionLevel: 1,
+    permissionLevel: CommandPermissionLevel.Admin,
     mandatoryParameters: [
       {
         name: 'test',
