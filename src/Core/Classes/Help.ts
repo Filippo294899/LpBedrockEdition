@@ -17,13 +17,19 @@ Command.register(
       {
         name: 'test',
         type: CustomCommandParamType.String
+
+        
+      },{
+        name: 'player',
+        type: CustomCommandParamType.PlayerSelector
       }
+
     ]   
   },
     (commandData: CommandData) => {
         const { source, commandArguments } = commandData;
         if (source instanceof Player) {
-            source.sendMessage(`Command executed with argument: ${commandArguments[0]}`);
+            source.sendMessage(`Command executed with argument: ${commandArguments[0]} and player: ${commandArguments[1].nameTag}`);
         }
         return { status: 0 };
     }

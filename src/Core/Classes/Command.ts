@@ -8,7 +8,7 @@ export default class Command {
   }
 
     static register(customCommand: CustomCommand, callback: (...args: any[]) => CustomCommandResult): void {
-    customCommand.name = 'Lp:' + customCommand.name
+    customCommand.name = 'lp:' + customCommand.name
     system.beforeEvents.startup.subscribe(data => {
       data.customCommandRegistry.registerCommand(customCommand, ((origin, ...commandArgs) => {
         const commandData = new CommandData(origin, commandArgs || []);
